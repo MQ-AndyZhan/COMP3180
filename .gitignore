@@ -16,9 +16,6 @@
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
-# Profiler captures can get excessive in size
-/[Pp]rofiler[Cc]aptures/
-
 # Recordings can get excessive in size
 /[Rr]ecordings/
 
@@ -31,15 +28,6 @@
 # Visual Studio cache directory
 .vs/
 
-.claude/
-.vscode/
-.mimocode/
-.workbuddy/
-.zcode/
-.Log/
-_Recovery/
-_Recovery.meta
-
 # Gradle cache directory
 .gradle/
 
@@ -49,7 +37,6 @@ ExportedObj/
 *.csproj
 *.unityproj
 *.sln
-*.slnx
 *.suo
 *.tmp
 *.user
@@ -87,9 +74,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Performance recorder output (local play-session traces)
-/[Ll]og/
-Docs/PerfLogs/
-
-# Player save slots (the game writes them beside the project root in the editor)
-/[Ss]aves/
+*/Library/*
+*/UserSettings/*
+*/Temp/*
+*/.vscode/*
