@@ -1,15 +1,15 @@
 -> Scene1
 
 === Scene1 === 
-FRIEND: Hello, how is your day? 
-    * [Great, how about you?] YOU: Great, how about you?
-       FRIEND: I'm very enegetic, Thank you!
+Hello, how is your day? # Speaker:Friend
+    * [Great, how about you?] Great, how about you? #Speaker:You
+        I'm very enegetic, Thank you! # Speaker:Friend
         -> Scene2
-    * [Not so bad.] YOU: Not so bad.
-        FRIEND: I'm glad to hear that!
+    * [Not so bad.] Not so bad. #Speaker:You
+        I'm glad to hear that! # Speaker:Friend
         -> Scene2
-    * [Awful, you never know!] YOU: Awful, you never know!
-        FRIEND: Oh! Hope everything will get well soon!
+    * [Awful, you never know!] Awful, you never know! #Speaker:You
+        Oh! Hope everything will get well soon!# Speaker:Friend
         -> Scene2
 
 -> DONE
@@ -18,18 +18,17 @@ FRIEND: Hello, how is your day?
 === Scene2 ===
 
 
-FRIEND: By the way, what's your favorite food?
-    * [Pizza] YOU: Pizza.
+By the way, what's your favorite food? #Speaker:Friend
+    * [Pizza] Pizza. #Speaker:You
         -> GetFavoriteFood("pizza")
-    * [Cake] YOU: Cake.
+    * [Cake] Cake. #Speaker:You
         -> GetFavoriteFood("cake")
-    * [Noodles] YOU: Noodles.
+    * [Noodles] Noodles. #Speaker:You
         -> GetFavoriteFood("noodles")
-
 -> DONE
 
 === GetFavoriteFood(favoriteFood) ===
-FRIEND: I like {favoriteFood} as well!
-Nice to talk with you, see you later!
+I like {favoriteFood} as well! #Speaker:Friend
+Nice to talk with you, see you later! #Speaker:Friend
 
 -> END

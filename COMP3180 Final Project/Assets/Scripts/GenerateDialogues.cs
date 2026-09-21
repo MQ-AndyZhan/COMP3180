@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public class GenerateDialogues : MonoBehaviour
         TypeSentence(sentence);
     }
 
-    public void TypeSentence(string newSentence)
+    public void TypeSentence(string newSentence, Action onComplete = null)
     {
         sentence = newSentence;
 
@@ -34,14 +35,15 @@ public class GenerateDialogues : MonoBehaviour
             StopCoroutine(typingCoroutine);
         }
 
-        typingCoroutine = StartCoroutine(TypeSentenceCoroutine());
+        typingCoroutine = StartCoroutine(TypeSentenceCoroutine(onComplete));
     }
 
-    private IEnumerator TypeSentenceCoroutine()
+    private IEnumerator TypeSentenceCoroutine(Action onComplete)
     {
         if (dialogueText == null)
         {
             typingCoroutine = null;
+            onComplete?.Invoke();
             yield break;
         }
 
@@ -54,6 +56,7 @@ public class GenerateDialogues : MonoBehaviour
         }
 
         typingCoroutine = null;
+        onComplete?.Invoke();
     }
 
 }

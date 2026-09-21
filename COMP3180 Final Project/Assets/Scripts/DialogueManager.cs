@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Remove if using standard Unity Text
+using TMPro;
 using Ink.Runtime;
 
 public class InkDialogueManager : MonoBehaviour
@@ -12,9 +12,10 @@ public class InkDialogueManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GenerateDialogues storyText; // Use Text if not using TMP
     [SerializeField] private Transform buttonContainer;
-    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private Button UIDialogueChoicePrefab; // Prefab for the choice buttons
 
     [SerializeField] private Button continueBtn;
+    [SerializeField] private TMP_Text speakerText;
 
     void Start()
     {
@@ -34,40 +35,62 @@ public class InkDialogueManager : MonoBehaviour
 
         // Read and display one line so the player controls when the story advances.
         string text = story.canContinue ? story.Continue() : string.Empty;
+        UpdateSpeakerText();
 
-        storyText.TypeSentence(text); // Start typing the text with the typewriter effect
-
-        // If there are choices, display buttons for them
         if (story.currentChoices.Count > 0)
         {
             continueBtn.gameObject.SetActive(false); // Hide the continue button when choices are available
-            DisplayChoices();
+            storyText.TypeSentence(text, DisplayChoices); // Show choices after the typewriter effect finishes
         }
-        else if (story.canContinue)
+        else
         {
-            // DisplayContinueButton();
-            continueBtn.gameObject.SetActive(true);
+            storyText.TypeSentence(text); // Start typing the text with the typewriter effect
+
+            if (story.canContinue)
+            {
+                continueBtn.gameObject.SetActive(true);
+            }
         }
     }
 
-    // void DisplayContinueButton()
-    // {
-    //     Button continueButton = Instantiate(buttonPrefab, buttonContainer);
-    //     TextMeshProUGUI buttonText = continueButton.GetComponentInChildren<TextMeshProUGUI>();
-    //     buttonText.text = "Continue";
-    //     continueButton.onClick.AddListener(RefreshView);
-    // }
+    void UpdateSpeakerText()
+    {
+        if (speakerText == null)
+        {
+            return;
+        }
+
+        speakerText.text = string.Empty;
+
+        foreach (string tag in story.currentTags)
+        {
+            const string speakerPrefix = "Speaker:";
+            string trimmedTag = tag.Trim();
+
+            if (trimmedTag.StartsWith("#Speaker:"))
+            {
+                speakerText.text = trimmedTag.Substring("#Speaker:".Length).Trim();
+                return;
+            }
+
+            if (trimmedTag.StartsWith(speakerPrefix))
+            {
+                speakerText.text = trimmedTag.Substring(speakerPrefix.Length).Trim();
+                return;
+            }
+        }
+    }
 
     void DisplayChoices()
     {
-        int yPos = 200;
+        int yPos = 300;
         // Loop through every choice Ink gives us
         for (int i = 0; i < story.currentChoices.Count; i++)
         {
             Choice choice = story.currentChoices[i];
 
             // Instantiate a new button prefab inside our container
-            Button choiceButton = Instantiate(buttonPrefab, buttonContainer);
+            Button choiceButton = Instantiate(UIDialogueChoicePrefab, buttonContainer);
             choiceButton.transform.localPosition = new Vector3(0, yPos, 0);
             yPos -= 200; // Adjust this value to control the vertical spacing between buttons
 
@@ -99,6 +122,7 @@ public class InkDialogueManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
 }
 
 
