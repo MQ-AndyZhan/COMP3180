@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
@@ -7,11 +8,13 @@ public class InkDialogueManager : MonoBehaviour
 {
     [Header("Ink Configuration")]
     [SerializeField] private TextAsset inkJSONAsset;
+    [SerializeField] private string sceneToLoadAtEnd;
     private Story story;
+    private bool storyHasEnded;
 
     [Header("UI References")]
-    [SerializeField] private GenerateDialogues storyText; // Use Text if not using TMP
-    [SerializeField] private Transform buttonContainer;
+    [SerializeField] private GenerateDialogues storyText; 
+    [SerializeField] private Transform UIDialogueChoiceContainer; // Container for the choice buttons
     [SerializeField] private Button UIDialogueChoicePrefab; // Prefab for the choice buttons
 
     [SerializeField] private Button continueBtn;
@@ -30,6 +33,12 @@ public class InkDialogueManager : MonoBehaviour
     // This handles advancing the text and creating buttons
     public void RefreshView()
     {
+        if (storyHasEnded)
+        {
+            LoadSceneAtEnd();
+            return;
+        }
+
         // Clear out any old choice buttons from the previous turn
         RemoveExistingButtons();
 
@@ -44,13 +53,29 @@ public class InkDialogueManager : MonoBehaviour
         }
         else
         {
-            storyText.TypeSentence(text); // Start typing the text with the typewriter effect
-
             if (story.canContinue)
             {
+                storyText.TypeSentence(text); // Start typing the text with the typewriter effect
+                continueBtn.gameObject.SetActive(true);
+            }
+            else
+            {
+                storyHasEnded = true;
+                storyText.TypeSentence(text);
                 continueBtn.gameObject.SetActive(true);
             }
         }
+    }
+
+    private void LoadSceneAtEnd()
+    {
+        if (string.IsNullOrWhiteSpace(sceneToLoadAtEnd))
+        {
+            Debug.LogError("No scene has been assigned for the end of the Ink story.");
+            return;
+        }
+
+        SceneManager.LoadScene(sceneToLoadAtEnd);
     }
 
     void UpdateSpeakerText()
@@ -69,13 +94,13 @@ public class InkDialogueManager : MonoBehaviour
 
             if (trimmedTag.StartsWith("#Speaker:"))
             {
-                speakerText.text = trimmedTag.Substring("#Speaker:".Length).Trim();
+                speakerText.text = trimmedTag.Substring("#Speaker:".Length).Trim() + ":";
                 return;
             }
 
             if (trimmedTag.StartsWith(speakerPrefix))
             {
-                speakerText.text = trimmedTag.Substring(speakerPrefix.Length).Trim();
+                speakerText.text = trimmedTag.Substring(speakerPrefix.Length).Trim() + ":";
                 return;
             }
         }
@@ -90,7 +115,7 @@ public class InkDialogueManager : MonoBehaviour
             Choice choice = story.currentChoices[i];
 
             // Instantiate a new button prefab inside our container
-            Button choiceButton = Instantiate(UIDialogueChoicePrefab, buttonContainer);
+            Button choiceButton = Instantiate(UIDialogueChoicePrefab, UIDialogueChoiceContainer);
             choiceButton.transform.localPosition = new Vector3(0, yPos, 0);
             yPos -= 200; // Adjust this value to control the vertical spacing between buttons
 
@@ -117,7 +142,7 @@ public class InkDialogueManager : MonoBehaviour
 
     void RemoveExistingButtons()
     {
-        foreach (Transform child in buttonContainer)
+        foreach (Transform child in UIDialogueChoiceContainer)
         {
             Destroy(child.gameObject);
         }
