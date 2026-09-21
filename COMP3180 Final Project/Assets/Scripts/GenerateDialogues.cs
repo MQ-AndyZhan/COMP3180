@@ -55,4 +55,5 @@ public class GenerateDialogues : MonoBehaviour
 
         typingCoroutine = null;
     }
+
 }
