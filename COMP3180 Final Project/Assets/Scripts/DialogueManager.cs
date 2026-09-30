@@ -19,7 +19,36 @@ public class InkDialogueManager : MonoBehaviour
 
     [SerializeField] private Button continueBtn;
     [SerializeField] private TMP_Text speakerText;
+    [SerializeField] private GameObject pausePanel;
     private TMP_Text continueButtonText;
+    private PlayerInput playerInput;
+
+    void Awake()
+    {
+        playerInput = new PlayerInput();
+        playerInput.PauseMenu.Newaction.performed += OnPausePressed;
+        playerInput.PauseMenu.Enable();
+    }
+
+    void OnDestroy()
+    {
+        playerInput.PauseMenu.Newaction.performed -= OnPausePressed;
+        playerInput.PauseMenu.Disable();
+        playerInput.Dispose();
+    }
+
+    private void OnPausePressed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Debug.Log("Pause button pressed");
+        if (pausePanel.activeSelf)
+        {
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            pausePanel.SetActive(true);
+        }
+    }
 
     void Start()
     {
@@ -32,6 +61,7 @@ public class InkDialogueManager : MonoBehaviour
         // 2. Start displaying the story
         RefreshView();
         continueBtn.gameObject.SetActive(false); // Hide the continue button initially
+        pausePanel.SetActive(false); // Ensure the pause panel is hidden at the start
     }
 
     // This handles advancing the text and creating buttons
@@ -162,6 +192,15 @@ public class InkDialogueManager : MonoBehaviour
         }
     }
 
+    public void returnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void closePausePanel()
+    {
+        pausePanel.SetActive(false);
+    }
 }
 
 
