@@ -18,7 +18,7 @@ Hello, how is your day? # Speaker:Friend
 === Scene2 ===
 
 
-By the way, what's your favorite food? #Speaker:Friend
+By the way, what's your favorite food? what's your favorite food? what's your favorite food? what's your favorite food?  #Speaker:Friend
     * [Pizza] Pizza. #Speaker:You
         -> GetFavoriteFood("pizza")
     * [Cake] Cake. #Speaker:You

@@ -10,7 +10,6 @@ public class MainMenu : MonoBehaviour
     
     public void QuitGame ()
     {
-        Debug.Log("Quit");
         UnityEditor.EditorApplication.ExitPlaymode();
         Application.Quit();
     }

@@ -19,9 +19,13 @@ public class InkDialogueManager : MonoBehaviour
 
     [SerializeField] private Button continueBtn;
     [SerializeField] private TMP_Text speakerText;
+    private TMP_Text continueButtonText;
 
     void Start()
     {
+        continueButtonText = continueBtn.GetComponentInChildren<TMP_Text>();
+        SetContinueButtonText("Continue");
+
         // 1. Initialize the story
         story = new Story(inkJSONAsset.text);
         
@@ -55,15 +59,25 @@ public class InkDialogueManager : MonoBehaviour
         {
             if (story.canContinue)
             {
-                storyText.TypeSentence(text); // Start typing the text with the typewriter effect
+                SetContinueButtonText("skip");
+                storyText.TypeSentence(text, () => SetContinueButtonText("Continue")); // Start typing the text with the typewriter effect
                 continueBtn.gameObject.SetActive(true);
             }
             else
             {
                 storyHasEnded = true;
-                storyText.TypeSentence(text);
+                SetContinueButtonText("skip");
+                storyText.TypeSentence(text, () => SetContinueButtonText("Continue"));
                 continueBtn.gameObject.SetActive(true);
             }
+        }
+    }
+
+    private void SetContinueButtonText(string text)
+    {
+        if (continueButtonText != null)
+        {
+            continueButtonText.text = text;
         }
     }
 
