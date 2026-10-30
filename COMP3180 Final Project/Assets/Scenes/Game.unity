@@ -832,6 +832,7 @@ MonoBehaviour:
   sentence: Good Evening. How are you. Long time no see. Seems like you are currently
     experiencing a huge trouble.
   letterDelay: 0.05
+  dialogueText: {fileID: 0}
 --- !u!1 &586167338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,12 +1479,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InkDialogueManager
   inkJSONAsset: {fileID: 4900000, guid: d3a34dc9db2f9c74da65a849c095bfba, type: 3}
   sceneToLoadAtEnd: MainMenu
+  storyHasEnded: 0
   storyText: {fileID: 546903740}
   UIDialogueChoiceContainer: {fileID: 1594747138}
   UIDialogueChoicePrefab: {fileID: 5075410157992477983, guid: ee9ca31ce038efe46b329dbca0e3a6c1, type: 3}
   continueBtn: {fileID: 662346090}
   speakerText: {fileID: 278654327}
   pausePanel: {fileID: 759335605}
+  continueButtonText: {fileID: 0}
 --- !u!4 &1369756764
 Transform:
   m_ObjectHideFlags: 0
