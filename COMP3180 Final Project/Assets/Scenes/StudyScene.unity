@@ -4531,8 +4531,8 @@ MonoBehaviour:
   errorMessageText: {fileID: 1882786045}
   errorReturnButton: {fileID: 1129404945}
   studyFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  playerDisplayName: You
-  friendDisplayName: Classmate
+  playerDisplayName: Chris
+  friendDisplayName: Tracy
   expectedDecisionPointCount: 4
   maxControlOutputs: 64
   maxDialogueLines: 4
