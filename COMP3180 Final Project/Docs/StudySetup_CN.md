@@ -272,7 +272,6 @@ Where should we start? # speaker:friend # line:q01 # choice_point:cp01
 * [We can list the questions together.] -> cp01_o2
 
 === cp01_o1 ===
-I want to hear your thoughts first. # speaker:player # line:cp01_o1_selected
 Okay. Let me start with what worries me most. # speaker:friend # line:cp01_o1_reply
 -> cp01_after
 
@@ -289,10 +288,10 @@ You continue sorting the notes on the desk. # speaker:narrator # line:shared_cp0
 关键点：
 
 1. **选项用方括号写法** `* [显示文字] -> 目标`。方括号会阻止 Ink 自动把选项文字再输出成正文。
-2. 分支开头**显式写玩家台词**，带 `# speaker:player`。控制器不会自己拼接答案；如果 Ink 不输出，正文就没有玩家回答。
-3. 每个选项 1 句玩家回答 + 1–2 句角色回应，然后全部 divert 到**同一个**公共 knot。回应篇幅、信息量、情绪强度要相近。
+2. 分支第一句**可以是任意说话者**：`# speaker:player`、`# speaker:friend` 或 `# speaker:narrator`，按剧情需要写。控制器不会自己拼接答案，所以每个分支至少要写 1 句带完整 tag 的可见正文。
+3. 每个选项的分支正文可以只有 **1 句**，也可以连续写**多句**；每句单独成行、单独写 `speaker` 和 `line`，写完后 divert 到**同一个**公共 knot。分支内不要再嵌套新的决策点。研究需要横向比较时，各分支的篇幅、信息量、情绪强度尽量相近。
 4. 提问行与第一个 `*` 选项之间**不能再有非空正文**。控制器在读到 `choice_point` 后会一直消费空输出，遇到非空正文直接判为剧本格式错误。
-5. A、B、C 三个文件在同一决策点的共享选项文字、顺序、回应必须逐字一致；B 在 A 的前两项后加第 3 项，C 在 B 的前三项后加第 4、5 项。A 文件只写 2 个选项，B 写 3 个，C 写 5 个。
+5. A、B、C 三个文件在同一决策点的共享选项文字、顺序、共享选项的分支正文必须逐字一致；B 在 A 的前两项后加第 3 项，C 在 B 的前三项后加第 4、5 项。A 文件只写 2 个选项，B 写 3 个，C 写 5 个。
 6. `line` 在一个版本内唯一；共享正文和共享分支在三版使用相同 ID，便于逐字核对。
 7. 结局最后一句必须带 `# end:common`，并且之前已经完成 cp01–cp04。`end:common` 之后只能有 `-> END` 之类的纯控制输出，不能还有正文或选项。
 
@@ -323,7 +322,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 ### 4.4 编译与检查
 
 - 保存 `.ink` 后 Ink Unity Integration 自动编译；Project 窗口出现同名 `.json`。
-- 用 Ink 的 Player 窗口预览时，确认选项文字、括号回显、玩家台词都符合预期。
+- 用 Ink 的 Player 窗口预览时，确认选项文字、括号回显、分支第一句及其后续正文都符合预期。
 - 如果换了自定义字体，可先执行 `Tools > Visual Novel Study > Export Story Charset`；构建日志仍应显示“缺字 0”。
 - 临时联调只有 1 个决策点时，把 `StudyController.expectedDecisionPointCount` 改为 1；正式构建必须改回 4。控制器会校验 `cp01` 的顺序，不能跳过或重复。
 
@@ -364,7 +363,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | 双击/多击按钮 | 只接受第一次 `clickCount == 1` 的左键点击；后续忽略 |
 | 键盘 | 没有 Submit 路径；EventSystem 导航关闭 |
 | 提问 | 提问正文与全部选项同屏出现；Continue 隐藏；选项数必须等于配置 |
-| 选择 | 选项组同帧隐藏；Ink 输出玩家台词；随后显示回应与公共剧情 |
+| 选择 | 选项组同帧隐藏；Ink 输出分支第一句（player / friend / narrator 均可）；随后显示后续回应与公共剧情 |
 | 结局末句 | 仍停留在 Reading，Continue 仍显示 `Continue`；再点一次才进 Complete |
 | 完成页 | `Version X complete` + 问卷提示 + 唯一 `Return to start` 按钮 |
 | 错误 | 阻断 ErrorPanel，显示英文中性文案；Console 输出 `[Study]` 具体原因与 line ID |
@@ -390,7 +389,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | 编号 | 检查 | 通过条件 |
 |---|---|---|
 | D01 | 提问在当次读取出现 | 提问与全部答案同次刷新，无额外继续点击 |
-| D02 | 方括号选项被选择 | 玩家回答正文只显示一次，姓名正确 |
+| D02 | 方括号选项被选择 | 分支第一句正文只显示一次，姓名显示或旁白隐藏正确 |
 | D03 | 普通文本停止但无选项 | 未到共同末句时转 Error，不误报完成 |
 | D04 | end tag 后意外还有正文 | 阻断该轮 |
 | D05 | 某版选项数配置错误 | 不截去/补造答案，转 Error |
@@ -401,8 +400,8 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | D10 | 错误页返回后重启任意版本 | 无旧 Story、旧监听、旧结局状态 |
 | T01 | 逐一启动 A/B/C | 均从首句开始，配置与标签一致 |
 | T02 | 全部决策点 | 同一位置分别 2/3/5 个选项，无隐藏项 |
-| T03 | 遍历 40 个局部选择 | 每个选项都有正确回应并回到公共剧情 |
-| T04 | 比较共享内容 | 公共文本、共享回应、结局、展示规则一致 |
+| T03 | 遍历 40 个局部选择 | 每个选项都有正确的分支正文并回到公共剧情 |
+| T04 | 比较共享内容 | 公共文本、共享选项的分支正文、结局、展示规则一致 |
 | T05 | 快速连续点击 | 不重复提交、不跳过显示单元、不启动重复实例 |
 | T06 | 完成后返回并启动另一版 | 无残留 |
 | T07 | 最长文本与五选项界面 | 窗口中完整可读，无遮挡/滚动 |
@@ -441,8 +440,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | `The version could not start. Please tell the researcher.` | JSON 未绑定/不是 JSON/解析失败；三版配置缺失、重复标签或共用同一资产 | 检查 Version Configs；确认三个 JSON 都是 TextAsset；看 Console `[Study]` |
 | `This run has stopped. Please tell the researcher.` | tag 缺失/未知/重复、决策点顺序错、选项数不符、正文/选项超行、结局后还有内容 | 看 Console `[Study] ... line=...`；按 line ID 修 Ink |
 | `choice count X != expected Y` | B/C 的选项没写够，或 `expectedChoiceCount` 配错 | 每版固定 2/3/5；不要自动复制选项 |
-| `选择之后的第一个显示单元必须是 speaker:player` | 方括号选项后没有显式写玩家台词，或第一个单元是旁白/对方 | 在分支第一行写玩家回答并加 `# speaker:player` |
-| `选择之后的局部分支不得立刻出现新的决策点` | 选项分支里又写了 `choice_point` | 局部分支只做一次回应，然后 divert 到公共节点 |
+| `选择之后的局部分支不得立刻出现新的决策点` | 选项分支的第一句就写了 `choice_point` | 分支先写至少 1 句可见正文，再 divert 到公共节点；不要在分支里嵌套决策点 |
 | `决策点顺序错误：预期 cp02，实际 cp03` | 漏写/跳号/重复 `choice_point` | 四个决策点必须 cp01→cp04 顺序出现 |
 | `line ID 重复` | 复制分支时忘了改 line | 每个可见单元唯一；共享分支三版用相同 ID |
 | `end:common 之后仍有正文/选项` | 结局标记后还有内容 | 删除；`end:common` 只放在最后一句 |

@@ -92,7 +92,7 @@ namespace VNStudy
         private string currentChoicePointId = string.Empty;
         private int completedChoicePoints;
         private bool currentLineIsEnding;
-        private bool expectPlayerEcho;
+        private bool expectChoiceResponse;
 
         private int viewToken;
         private int lastAcceptedFrame = -1;
@@ -352,22 +352,10 @@ namespace VNStudy
                     return;
                 }
 
-                if (expectPlayerEcho)
+                if (expectChoiceResponse && meta.ChoicePointId != null)
                 {
-                    if (meta.ChoicePointId != null)
-                    {
-                        FailCurrentRun("选择之后的局部分支不得立刻出现新的决策点。", failureText);
-                        return;
-                    }
-
-                    if (meta.Speaker != Speaker.Player)
-                    {
-                        FailCurrentRun(
-                            "选择之后的第一个显示单元必须是 speaker:player 的玩家回答" +
-                            $"（实际为 {meta.Speaker}，line {meta.LineId}）。",
-                            failureText);
-                        return;
-                    }
+                    FailCurrentRun("选择之后的局部分支不得立刻出现新的决策点。", failureText);
+                    return;
                 }
 
                 if (!RenderUnit(text, meta, failureText))
@@ -375,7 +363,7 @@ namespace VNStudy
                     return;
                 }
 
-                expectPlayerEcho = false;
+                expectChoiceResponse = false;
                 currentLineIsEnding = meta.IsEnding;
 
                 if (meta.ChoicePointId != null)
@@ -562,7 +550,7 @@ namespace VNStudy
             }
 
             completedChoicePoints++;
-            expectPlayerEcho = true;
+            expectChoiceResponse = true;
             HideChoicesAndClear();
             ReadNextVisibleOrBoundary(RuntimeFailureText);
         }
@@ -761,7 +749,7 @@ namespace VNStudy
             currentChoicePointId = string.Empty;
             completedChoicePoints = 0;
             currentLineIsEnding = false;
-            expectPlayerEcho = false;
+            expectChoiceResponse = false;
             runtimeError = false;
             runtimeErrorMessage = string.Empty;
             controlOutputsThisOperation = 0;

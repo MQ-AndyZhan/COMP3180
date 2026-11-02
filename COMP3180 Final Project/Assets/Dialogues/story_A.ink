@@ -7,17 +7,17 @@ Hey, what are you doing here all by yourself after school? Aren’t you going ho
 Startled by someone suddenly entering the room, the girl hurriedly began packing up her things, as though she were trying to hide something. # speaker:narrator # line:intro_04
 Just as she was about to put away the sheet of paper, a sudden gust of wind blew it right in front of Chris. He picked it up. # speaker:narrator # line:intro_05
 Uh... um... I didn’t draw that. # speaker:friend # line:intro_06
-Chris took a closer look at the paper. It seemed to be a drawing of a riverside landscape, complete with a pond, rocks, grass, and lotus flowers. In the pond was a strange, polygon-shaped creature. # speaker:friend # line:q01 # choice_point:cp01
+Chris took a closer look at the paper. It seemed to be a drawing of a riverside landscape, complete with a pond, mountains, grass, and lotus flowers. In the pond was a strange, polygon-shaped creature. # speaker:narrator # line:q01 # choice_point:cp01
 * [Oh, you can draw? That’s amazing!] -> cp01_o1
 * [If it isn’t yours, why did you have it?] -> cp01_o2
 
 === cp01_o1 ===
 N-no... I can’t draw. # speaker:friend # line:cp01_o1_selected
-Really? But I just watched you working on that drawing for ages. # speaker:player # line:cp01_o1_reply'
+Really? But I just watched you working on that drawing for ages. # speaker:player # line:cp01_o2_reply
 -> cp01_after
 
 === cp01_o2 ===
-B-because the person who drew it forgot to take it when they left. I was just going to write their name on it so nobody would mistake it for rubbish and throw it away. # speaker:player # line:cp01_o2_selected
+B-because the person who drew it forgot to take it when they left. I was just going to write their name on it so nobody would mistake it for rubbish and throw it away. # speaker:friend # line:cp01_o2_selected
 Is that so? But you’re the only person I’ve seen in here this whole time. # speaker:friend # line:cp01_o2_reply
 -> cp01_after
 
@@ -44,7 +44,7 @@ Why don’t you have time? # speaker:player # line:cp02_o2_reply
 -> cp02_after
 
 === cp02_after ===
-Sigh... The truth is, my family doesn’t support me studying art seriously. They think it won’t help me get a job in the future.# speaker:friend # line:shared_02_01
+Sigh... The truth is, my family doesn’t support me studying art seriously. They think it won’t help me get a job in the future. # speaker:friend # line:shared_02_01
 Huh? How can they be so sure what kind of job you’ll have? # speaker:player # line:shared_02_02
 I guess they just want me to become a doctor or a lawyer. # speaker:friend # line:shared_02_03
 Could you give me my paper back? I’d like to draw a little more. # speaker:friend # line:shared_02_04
@@ -86,7 +86,7 @@ Chris suddenly noticed that Tracy was getting happier and happier as she talked.
 That’s a really detailed explanation. Can I ask one last question? # speaker:player # line:shared_03_13
 Of course, of course! Go ahead! # speaker:friend # line:shared_03_14
 Why are you suddenly so happy? # speaker:player # line:shared_03_15
-Because someone’s actually willing to talk to me about drawing! I’ve never talked about it with my friends before because I’m afraid they won’t be interested, or that they’ll find me annoying. # speaker:friend # line:shared_03_16
+Because someone’s actually willing to talk to me about drawing! I’ve never talked about it with my friends before because I’m afraid they won’t be interested, or that they’ll find me annoying. # speaker:friend # line:q04 # choice_point:cp04
 * [Aren’t you worried I might find you annoying too?] -> cp04_o1
 * [How would you know if you’ve never tried?] -> cp04_o2
 
@@ -118,6 +118,6 @@ I guess I was curious. I hardly ever go into the art classroom. # speaker:player
 Is that really all? Are you sure you didn’t fall for me while you were sneaking a look? # speaker:friend # line:shared_04_16
 You’re imagining things. I’m leaving. # speaker:player # line:shared_04_17
 Hahaha! Don’t go! Stay and chat a little longer~ # speaker:friend # line:shared_04_18
-Chris walked home alone. # speaker:narrator # line:shared_04_17
-She looked so innocent, but she’s actually pretty sly. Guess you really can’t judge a book by its cover. # speaker:narrator # line:ending_last # end:common
+Chris walked home alone. # speaker:narrator # line:shared_04_19
+She looked so innocent, but she’s actually pretty sly. Guess you really can’t judge a book by its cover. # speaker:player # line:ending_last # end:common
 -> END
