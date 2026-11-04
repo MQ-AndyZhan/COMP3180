@@ -53,6 +53,14 @@ namespace VNStudy
         public SingleClickButton continueButton;
         public CanvasScaler canvasScaler;
 
+        [Header("Portraits")]
+        public Image playerPortrait;
+        public Image friendPortrait;
+
+        [Range(0f, 1f)]
+        [Tooltip("非说话者立绘的 HSV V 值，0.3 表示 30%。")]
+        public float nonSpeakerPortraitValue = 0.3f;
+
         [Header("Choices")]
         public GameObject choicesPanel;
         public SingleClickButton[] choiceSlots = new SingleClickButton[5];
@@ -94,6 +102,10 @@ namespace VNStudy
         private bool currentLineIsEnding;
         private bool expectChoiceResponse;
 
+        private Color playerPortraitBaseColor = Color.white;
+        private Color friendPortraitBaseColor = Color.white;
+        private bool portraitColorsCached;
+
         private int viewToken;
         private int lastAcceptedFrame = -1;
         private int controlOutputsThisOperation;
@@ -111,6 +123,8 @@ namespace VNStudy
         private void Awake()
         {
             EnsureCallbackArrays();
+            ResolvePortraitReferences();
+            CachePortraitColors();
             setupValid = ValidateSetup();
 
             if (EventSystem.current != null)
@@ -737,6 +751,7 @@ namespace VNStudy
             HideChoicesAndClear();
             HideContinue();
             UnbindReturnButton();
+            RestorePortraitColors();
 
             if (story != null)
             {
@@ -1109,8 +1124,109 @@ namespace VNStudy
                 }
             }
 
+            ApplyPortraitFocus(meta.Speaker);
             currentLineId = meta.LineId;
             return true;
+        }
+
+        private void ResolvePortraitReferences()
+        {
+            if (gamePanel == null)
+            {
+                return;
+            }
+
+            if (playerPortrait == null)
+            {
+                playerPortrait = FindPortrait("PlayerPortrait");
+                if (playerPortrait == null)
+                {
+                    Debug.LogWarning(
+                        "[Study] playerPortrait 未绑定，且未在 GamePanel 下找到 PlayerPortrait；立绘明暗不会变化。");
+                }
+            }
+
+            if (friendPortrait == null)
+            {
+                friendPortrait = FindPortrait("FriendPortrait");
+                if (friendPortrait == null)
+                {
+                    Debug.LogWarning(
+                        "[Study] friendPortrait 未绑定，且未在 GamePanel 下找到 FriendPortrait；立绘明暗不会变化。");
+                }
+            }
+        }
+
+        private Image FindPortrait(string objectName)
+        {
+            Transform child = gamePanel.transform.Find(objectName);
+            return child != null ? child.GetComponent<Image>() : null;
+        }
+
+        private void CachePortraitColors()
+        {
+            if (playerPortrait != null)
+            {
+                playerPortraitBaseColor = playerPortrait.color;
+            }
+
+            if (friendPortrait != null)
+            {
+                friendPortraitBaseColor = friendPortrait.color;
+            }
+
+            portraitColorsCached = true;
+        }
+
+        private void ApplyPortraitFocus(Speaker speaker)
+        {
+            if (playerPortrait == null && friendPortrait == null)
+            {
+                return;
+            }
+
+            if (!portraitColorsCached)
+            {
+                CachePortraitColors();
+            }
+
+            SetPortraitDimmed(playerPortrait, playerPortraitBaseColor, speaker != Speaker.Player);
+            SetPortraitDimmed(friendPortrait, friendPortraitBaseColor, speaker != Speaker.Friend);
+        }
+
+        private void SetPortraitDimmed(Image portrait, Color baseColor, bool dimmed)
+        {
+            if (portrait == null)
+            {
+                return;
+            }
+
+            if (!dimmed)
+            {
+                portrait.color = baseColor;
+                return;
+            }
+
+            Color.RGBToHSV(baseColor, out float hue, out float saturation, out _);
+            Color dimmedColor = Color.HSVToRGB(
+                hue,
+                saturation,
+                Mathf.Clamp01(nonSpeakerPortraitValue));
+            dimmedColor.a = baseColor.a;
+            portrait.color = dimmedColor;
+        }
+
+        private void RestorePortraitColors()
+        {
+            if (playerPortrait != null)
+            {
+                playerPortrait.color = playerPortraitBaseColor;
+            }
+
+            if (friendPortrait != null)
+            {
+                friendPortrait.color = friendPortraitBaseColor;
+            }
         }
 
         private static bool Fits(TMP_Text label, int maxLines)

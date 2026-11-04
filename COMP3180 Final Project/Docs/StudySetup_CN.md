@@ -145,6 +145,8 @@ Tools > Visual Novel Study > Build StudyScene
 | `Version Buttons` / `Version Button Labels` | 各 3 项 |
 | `Speaker Name Text` / `Dialogue Text` / `Continue Button` | DialoguePanel 内的三个对象 |
 | `Canvas Scaler` | Canvas 上的 CanvasScaler |
+| `Player Portrait` / `Friend Portrait` | GamePanel 下的两张立绘 Image；留空时按名称自动查找 |
+| `Non Speaker Portrait Value` | 非说话者立绘 HSV 的 V 值，默认 `0.3`（30%） |
 | `Choices Panel` | ChoicesPanel |
 | `Choice Slots` / `Choice Labels` | 各 5 项 |
 | `Complete Title Text` / `Complete Instruction Text` / `Complete Return Button` | CompletePanel 内 |
@@ -199,6 +201,8 @@ StudyScene
 ```
 
 层级顺序固定为：`BackgroundImage → PlayerPortrait → FriendPortrait → DialoguePanel → ChoicesPanel`。不要为了让 A/B 的空位“好看”而加底板、空槽位或暗化遮罩；B.1 明确把它作为研究限制处理。
+
+两张立绘的 `Image.color` 会按当前说话者改写：说话者恢复原色，非说话者 HSV 的 V 变为 `Non Speaker Portrait Value`（默认 0.3），`narrator` 时两张同时变暗。只改 V，H/S/Alpha 保持不变；不移动或缩放立绘。
 
 ### 3.2 坐标表（1920×1080，左上角原点，y 向下）
 
@@ -359,6 +363,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | 启动/返回入口 | 显示 MenuPanel，三个版本按钮可用；Story 为空，旧正文/选项/进度已清空 |
 | 点击版本 | 立即禁用全部版本按钮 → 新建 Story → 显示首段正文 |
 | 普通正文 | 完整即时显示；只有 ContinueButton 可推进 |
+| 立绘明暗 | 说话者立绘保持原色；另一位 HSV 的 V=0.3；`narrator` 时两张都 V=0.3 |
 | 点击背景/正文/立绘/空白 | 无反应（Raycast Target 已关闭） |
 | 双击/多击按钮 | 只接受第一次 `clickCount == 1` 的左键点击；后续忽略 |
 | 键盘 | 没有 Submit 路径；EventSystem 导航关闭 |
@@ -398,6 +403,7 @@ cp04 提问 + 2/3/5 个选项 → 各自局部反馈 → cp04_after
 | D08 | 失焦再切回 | 画面和选择保持，无自动推进 |
 | D09 | 最长正文与最长五条答案 | 固定字体下完整可读，无滚动/遮挡 |
 | D10 | 错误页返回后重启任意版本 | 无旧 Story、旧监听、旧结局状态 |
+| D11 | 立绘明暗 | player 说话时仅 FriendPortrait 的 V=0.3；friend 说话时仅 PlayerPortrait 的 V=0.3；narrator 时两张都 V=0.3 |
 | T01 | 逐一启动 A/B/C | 均从首句开始，配置与标签一致 |
 | T02 | 全部决策点 | 同一位置分别 2/3/5 个选项，无隐藏项 |
 | T03 | 遍历 40 个局部选择 | 每个选项都有正确的分支正文并回到公共剧情 |

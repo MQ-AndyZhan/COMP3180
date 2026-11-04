@@ -131,8 +131,10 @@ namespace VNStudy.EditorTools
             RectTransform game = CreateFullStretch("GamePanel", canvas.transform);
 
             CreateFullStretchImage("BackgroundImage", game, Hex("#20252D"));
-            CreateImage("PlayerPortrait", game, 120f, 96f, 600f, 920f, Hex("#2E3B4E"), true);
-            CreateImage("FriendPortrait", game, 1200f, 96f, 600f, 920f, Hex("#2E3B4E"), true);
+            RectTransform playerPortrait = CreateImage(
+                "PlayerPortrait", game, 120f, 96f, 600f, 920f, Hex("#2E3B4E"), true);
+            RectTransform friendPortrait = CreateImage(
+                "FriendPortrait", game, 1200f, 96f, 600f, 920f, Hex("#2E3B4E"), true);
 
             Color dialoguePanelColor = Hex("#151A24");
             dialoguePanelColor.a = 235f / 255f;
@@ -241,6 +243,10 @@ namespace VNStudy.EditorTools
             controller.dialogueText = dialogueText;
             controller.continueButton = continueButton;
             controller.canvasScaler = scaler;
+
+            controller.playerPortrait = playerPortrait.GetComponent<Image>();
+            controller.friendPortrait = friendPortrait.GetComponent<Image>();
+            controller.nonSpeakerPortraitValue = 0.3f;
 
             controller.choicesPanel = choicesPanel.gameObject;
             controller.choiceSlots = choiceSlots;
