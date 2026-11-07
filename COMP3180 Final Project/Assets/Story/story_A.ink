@@ -3,7 +3,7 @@
 === start ===
 It was Friday afternoon, after school. Chris had just finished the homework he hadn’t completed the day before with his teacher and was about to head home. # speaker:narrator # line:intro_01
 As he passed the art classroom, he spotted a girl sitting alone, staring intently at a sheet of paper. She was moving her pen across it, as though she were writing something. Curious, Chris stepped inside. # speaker:narrator # line:intro_02
-Hey, what are you doing here all by yourself after school? Aren’t you going home? # speaker:player # line:intro_03
+Hey, what are you doing here? Aren’t you going home? # speaker:player # line:intro_03
 Startled by someone suddenly entering the room, the girl hurriedly began packing up her things, as though she were trying to hide something. # speaker:narrator # line:intro_04
 Just as she was about to put away the sheet of paper, a sudden gust of wind blew it right in front of Chris. He picked it up. # speaker:narrator # line:intro_05
 Uh... um... I didn’t draw that. # speaker:friend # line:intro_06
@@ -22,11 +22,11 @@ Is that so? But you’re the only person I’ve seen in here this whole time. # 
 -> cp01_after
 
 === cp01_after ===
-How long were you watching from outside? # speaker:friend # line:shared_01_01
+How long were you watching from outside!? # speaker:friend # line:shared_01_01
 I saw you take that paper out of your bag. You drew it yourself, didn’t you? # speaker:player # line:shared_01_02
 So you saw everything! Fine, I admit it. I drew it. # speaker:friend # line:shared_01_03
 So it really was yours! Actually, I didn’t see where you got the paper from at all. Hahaha! # speaker:player # line:shared_01_04
-You tricked me! # speaker:friend # line:shared_01_05
+You liar! # speaker:friend # line:shared_01_05
 Hahaha, sorry, sorry! So why didn’t you want to admit that you drew it? # speaker:player # line:shared_01_06
 Because I was afraid it didn’t look good. You saw it yourself, right? All the lines are crooked, and there are marks I can’t erase because I pressed too hard with the pencil. # speaker:friend # line:shared_01_07
 And it doesn’t really look like what it’s supposed to be. # speaker:friend # line:q02 # choice_point:cp02
@@ -107,7 +107,7 @@ Huh? Weren’t you clever enough to trick me into admitting the truth earlier? H
 That’s only because you don’t talk to people much. You didn’t catch on. # speaker:player # line:shared_04_05
 Then you should talk to me more often. # speaker:friend # line:shared_04_06
 I’ll pass. I’d rather hang out with my mates. # speaker:player # line:shared_04_07
-How cold! We’ve been talking for so long, and I still don’t even know your name. # speaker:friend # line:shared_04_08
+Aw, that's a shame. We’ve been talking for so long, and I still don’t even know your name. # speaker:friend # line:shared_04_08
 Chris. # speaker:player # line:shared_04_09
 I’m Tracy. Thanks for talking with me for so long! It felt really good to finally say all the things I’ve been keeping to myself. # speaker:friend # line:shared_04_10
 No problem. I’ll get going, then. # speaker:player # line:shared_04_11

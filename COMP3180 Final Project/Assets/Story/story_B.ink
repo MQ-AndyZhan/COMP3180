@@ -3,7 +3,7 @@
 === start ===
 It was Friday afternoon, after school. Chris had just finished the homework he hadn’t completed the day before with his teacher and was about to head home. # speaker:narrator # line:intro_01
 As he passed the art classroom, he spotted a girl sitting alone, staring intently at a sheet of paper. She was moving her pen across it, as though she were writing something. Curious, Chris stepped inside. # speaker:narrator # line:intro_02
-Hey, what are you doing here all by yourself after school? Aren’t you going home? # speaker:player # line:intro_03
+Hey, what are you doing here? Aren’t you going home? # speaker:player # line:intro_03
 Startled by someone suddenly entering the room, the girl hurriedly began packing up her things, as though she were trying to hide something. # speaker:narrator # line:intro_04
 Just as she was about to put away the sheet of paper, a sudden gust of wind blew it right in front of Chris. He picked it up. # speaker:narrator # line:intro_05
 Uh... um... I didn’t draw that. # speaker:friend # line:intro_06
@@ -11,8 +11,6 @@ Chris took a closer look at the paper. It seemed to be a drawing of a riverside 
 * [Oh, you can draw? That’s amazing!] -> cp01_o1
 * [If it isn’t yours, why did you have it?] -> cp01_o2
 * [Then who drew it? It looks really nice.] -> cp01_o3
-* [I never said you drew it. So what were you doing just now?] -> cp01_o4
-* [Hahaha, relax. No need to be nervous.] -> cp01_o5
 
 === cp01_o1 ===
 N-no... I can’t draw. # speaker:friend # line:cp01_o1_selected
@@ -30,31 +28,20 @@ It does look good. But why do you look so pleased about it?. # speaker:player # 
 B-because I’m proud of my friend! # speaker:friend # line:cp01_o3_selected
 -> cp01_after
 
-=== cp01_o4 ===
-B-because I wasn’t sure if this pen worked, I was testing it on a piece of paper. # speaker:friend # line:cp01_o1_selected
-Oh, I see. I thought maybe you were jealous of someone else’s drawing and were about to ruin their work. # speaker:player # line:cp01_o2_selected
-I’m not that evil! # speaker:friend # line:cp01_o3_selected
--> cp01_after
-
-=== cp01_o5 ===
-I-I’m not nervous! You just startled me by barging in like that. # speaker:friend # line:cp01_o1_selected
-Oh, I see. Sorry about that. # speaker:player # line:cp01_o2_selected
--> cp01_after
 
 === cp01_after ===
 How long were you watching from outside? # speaker:friend # line:shared_01_01
 I saw you take that paper out of your bag. You drew it yourself, didn’t you? # speaker:player # line:shared_01_02
 So you saw everything! Fine, I admit it. I drew it. # speaker:friend # line:shared_01_03
 So it really was yours! Actually, I didn’t see where you got the paper from at all. Hahaha! # speaker:player # line:shared_01_04
-You tricked me! # speaker:friend # line:shared_01_05
+You liar! # speaker:friend # line:shared_01_05
 Hahaha, sorry, sorry! So why didn’t you want to admit that you drew it? # speaker:player # line:shared_01_06
 Because I was afraid it didn’t look good. You saw it yourself, right? All the lines are crooked, and there are marks I can’t erase because I pressed too hard with the pencil. # speaker:friend # line:shared_01_07
 And it doesn’t really look like what it’s supposed to be. # speaker:friend # line:q02 # choice_point:cp02
 * [I actually think it looks really good.] -> cp02_o1
 * [I’m sure you’ll get better if you keep practising.] -> cp02_o2
 * [Only a few parts look a little odd. The rest is pretty good.] -> cp02_o3
-* [As long as you enjoy drawing, that’s what matters.] -> cp02_o4
-* [Then forget drawing and go play some sport! All your worries disappear when you exercise!] -> cp02_o5
+
 
 === cp02_o1 ===
 R-really? Thank you. # speaker:friend # line:cp02_o1_selected
@@ -71,20 +58,6 @@ See! Even you think there’s something wrong with it! # speaker:friend # line:c
 But that doesn’t stop the drawing from looking good overall? # speaker:player  # line:cp02_o2_selected
 You’re lying again! # speaker:friend # line:cp02_o3_selected
 Nope, I'm not. # speaker:player # line:cp02_o4_selected
--> cp02_after
-
-=== cp02_o4 ===
-But I can never get my drawings right! How am I supposed to enjoy that? # speaker:friend # line:cp02_o1_selected
-Then why not do something else that makes you happy? # speaker:player  # line:cp02_o2_selected
-Out of all the things I want to do, drawing feels like the only one I can start and finish whenever I want. # speaker:friend # line:cp02_o3_selected
-Wow, you really are short on time. # speaker:player # line:cp02_o4_selected
--> cp02_after
-
-=== cp02_o5 ===
-My stamina is terrible. I’d be exhausted after just a few minutes. Besides, the worries would only go away temporarily. # speaker:friend # line:cp02_o1_selected
-If you’re exhausted, that’s the perfect excuse to rest! And even if your worries only disappear for a little while, that’s better than worrying all the time. # speaker:player  # line:cp02_o2_selected
-You’re so optimistic. # speaker:friend # line:cp02_o3_selected
-Thanks for the compliment. # speaker:player # line:cp02_o4_selected
 -> cp02_after
 
 === cp02_after ===
@@ -104,8 +77,6 @@ They’re probably browsing around the supermarket on their way home. Or maybe t
 * [Why didn’t they invite you? Doesn’t sound like a very close friendship.] -> cp03_o1
 * [It must feel great not having tutoring today.] -> cp03_o2
 * [Why not go join them? Spending time with your friends is important too.] -> cp03_o3
-* [You and your friends have such different interests. Don’t people usually get influenced by those around them?] -> cp03_o4
-* [So how long are you planning to stay here and draw?] -> cp03_o5
 
 === cp03_o1 ===
 They did invite me, but I don’t really like group activities, so I turned them down. # speaker:friend # line:cp03_o1_selected
@@ -121,17 +92,6 @@ You’re so keen to draw. I’m sure you’ll improve with time. # speaker:playe
 We’re really just classmates who happen to be in the same classroom every day. Outside class, we all do our own thing. So we’re not actually that close. Haha. # speaker:friend # line:cp03_o1_selected
 Well, if you can get closer to them, you should try. That way, if you ever need their help, it’ll be easier to ask. # speaker:player # line:cp03_o2_selected
 That makes a lot of sense. I’ll try! # speaker:friend # line:cp03_o3_selected
--> cp03_after
-
-=== cp03_o4 ===
-Maybe I’m one of the rare people who don’t get influenced that easily. # speaker:friend # line:cp03_o1_selected
-Ah, so you’re a rare species. # speaker:player # line:cp03_o2_selected
--> cp03_after
-
-=== cp03_o5 ===
-Until a teacher comes to lock the classroom. # speaker:friend # line:cp03_o1_selected
-Careful you don’t get locked in here by yourself. # speaker:player # line:cp03_o2_selected
-Gee, thanks for the heads-up. # speaker:friend # line:cp03_o3_selected
 -> cp03_after
 
 === cp03_after ===
@@ -154,8 +114,6 @@ Because someone’s actually willing to talk to me about drawing! I’ve never t
 * [Aren’t you worried I might find you annoying too?] -> cp04_o1
 * [How would you know if you’ve never tried?] -> cp04_o2
 * [You could talk about drawing with your family.?] -> cp04_o3
-* [Then just talk to your friends about something else.] -> cp04_o4
-* [So you can talk to me because we’re not friends?] -> cp04_o5
 
 === cp04_o1 ===
 Uh... so you already think I’m annoying... I’m sorry.? # speaker:friend # line:cp04_o1_selected
@@ -172,16 +130,6 @@ I’m an only child, and all my parents ever do is work and nag me to finish my 
 That’s rough. # speaker:player # line:cp04_o3_reply
 -> cp04_after
 
-=== cp04_o4 ===
-But drawing is the only topic I can talk about for ages. When they talk about anything else, I mostly just listen. # speaker:friend # line:cp04_o3_selected
-Well, at least you still get to spend time with your friends. # speaker:player # line:cp04_o3_reply
--> cp04_after
-
-=== cp04_o5 ===
-Ah, no, that’s not what I meant... Uh... Actually, I guess that is kind of what I’m saying. # speaker:friend # line:cp04_o3_selected
-Wow. That’s a little hurtful. # speaker:player # line:cp04_o3_reply
--> cp04_after
-
 === cp04_after ===
 By the way, did you really understand everything I was talking about earlier? # speaker:friend # line:shared_04_01
 Of course... not. # speaker:player # line:shared_04_02
@@ -189,7 +137,7 @@ Huh? Weren’t you clever enough to trick me into admitting the truth earlier? H
 That’s only because you don’t talk to people much. You didn’t catch on. # speaker:player # line:shared_04_05
 Then you should talk to me more often. # speaker:friend # line:shared_04_06
 I’ll pass. I’d rather hang out with my mates. # speaker:player # line:shared_04_07
-How cold! We’ve been talking for so long, and I still don’t even know your name. # speaker:friend # line:shared_04_08
+Aw, that's a shame. We’ve been talking for so long, and I still don’t even know your name. # speaker:friend # line:shared_04_08
 Chris. # speaker:player # line:shared_04_09
 I’m Tracy. Thanks for talking with me for so long! It felt really good to finally say all the things I’ve been keeping to myself. # speaker:friend # line:shared_04_10
 No problem. I’ll get going, then. # speaker:player # line:shared_04_11
